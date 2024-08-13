@@ -1,22 +1,40 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Image as Img, StyleSheet, Platform } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { Button, Grid, Input, Image } from '@/components';
+import { useState } from 'react';
+
+const items = [
+  { id: 1, title: 'Item 1', content: 'Testando item 1' },
+  { id: 2, title: 'Item 2', content: 'Testando item 2' }
+];
 
 export default function HomeScreen() {
+  const [text, setText] = useState('');
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
-        <Image
+        <Img
           source={require('@/assets/images/partial-react-logo.png')}
           style={styles.reactLogo}
         />
       }>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
+        <ThemedText type="subtitle">Aqui estão os componentes criados: </ThemedText>
+        <Button title="Botão" />
+        <Input 
+          label="Nome"
+          value={text}
+          onChangeText={setText}
+          placeholder="Digite seu nome"
+        />
+        <Grid items={items} columns={2} />
+        <Image imageUrl="" size={80} />
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
@@ -52,7 +70,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     gap: 8,
   },
